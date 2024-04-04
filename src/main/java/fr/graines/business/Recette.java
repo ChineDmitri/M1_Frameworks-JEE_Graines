@@ -1,16 +1,11 @@
 package fr.graines.business;
 
+import java.util.ArrayList;
 import java.util.List;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,22 +14,25 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
 public class Recette {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long               id;
-    private String             intitule;
-    private String             contenu;
-    @ManyToMany
-    @JoinTable(name = "recette_type_de_graine",
-               joinColumns = @JoinColumn(name = "recette_id"),
-               inverseJoinColumns = @JoinColumn(name = "type_de_graine_id"))
-    private List<TypeDeGraine> typeDeGraines;
-    @ManyToOne
-    @JoinColumn(name = "jardinier_id") // Добавлено имя столбца для связи
-    private Jardinier          jardinier;
+    private Long id;
+    @NotNull(message = "L'intitulé de la recette ne doit pas être vide")
+    private String intitule;
+    private String contenu;
 
+    @ManyToMany
+    @JoinTable(
+            name = "recette_type_graine",
+            joinColumns = @JoinColumn(name = "recette_id"),
+            inverseJoinColumns = @JoinColumn(name = "type_graine_id")
+    )
+    private List<TypeDeGraine> typeDeGraines = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "jardinier_id")
+    private Jardinier jardinier;
 }

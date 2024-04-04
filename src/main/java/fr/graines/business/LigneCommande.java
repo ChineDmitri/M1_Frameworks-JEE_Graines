@@ -1,10 +1,6 @@
 package fr.graines.business;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,17 +11,19 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
 public class LigneCommande {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long     id;
-    private int      quantite;
+    private Long id;
+    private int quantite;
     @ManyToOne
-    private Sachet   sachet;
-    @ManyToOne
+    @JoinColumn(name = "commande_id")
     private Commande commande;
+    @ManyToOne
+    @JoinColumn(name = "sachet_id")
+    private Sachet sachet;
+
 
 }
