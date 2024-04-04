@@ -5,9 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class User {
+public class UtilisateurPost {
 
-    private String username;
+    private String nom;
+    private String prenom;
+    private String email;
     private String password;
     
 }
