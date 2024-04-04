@@ -1,13 +1,11 @@
 package fr.graines.business;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,11 +20,15 @@ public class Commande {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long                id;
-    private LocalDateTime       dateHeureDEnvoi;
+    private Long id;
+    private LocalDateTime dateHeureDEnvoi;
+
     @OneToMany(mappedBy = "commande")
-    private List<LigneCommande> lignesCommande;
+    @Size(min = 1, message = "La commande doit avoir au moins une ligne de commande")
+    private List<LigneCommande> ligneCommandes = new ArrayList<>();
+
     @ManyToOne
-    private Jardinier           jardinier;
+    @JoinColumn(name = "jardinier_id")
+    private Jardinier jardinier;
 
 }
