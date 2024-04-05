@@ -63,6 +63,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- === mapper === -->
+		<dependency>
+		    <groupId>org.mapstruct</groupId>
+		    <artifactId>mapstruct</artifactId>
+		    <version>1.5.4.Final</version> 
+		</dependency>
+		<dependency>
+		    <groupId>org.mapstruct</groupId>
+		    <artifactId>mapstruct-processor</artifactId>
+		    <!--1.3.1.Final-->
+		    <version>1.5.4.Final</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -79,6 +92,15 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+	            <groupId>org.mapstruct</groupId>
+	            <artifactId>mapstruct-maven-plugin</artifactId>
+	            <version>1.5.4.Final</version>
+	            <configuration>
+	                <componentModel>spring</componentModel>
+	            </configuration>
+	        </plugin>
 		</plugins>
 	</build>
 

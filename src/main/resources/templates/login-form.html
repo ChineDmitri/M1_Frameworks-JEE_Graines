@@ -8,17 +8,20 @@
 	<h2>Form d'authentification</h2>
 	<p th:if="${successMessage}" class="success-message"
 		th:text="${successMessage}"></p>
-	<form action="#" th:action="@{/auth}" th:object="${user}" method="post">
+	<form action="#" th:action="@{/login}" th:object="${user}"
+		method="post">
 		<div>
-			<label for="username">Nom d'utilisateur :</label><br> <input
-				type="text" id="username" name="username" th:field="*{username}"
-				required><br>
+			<label for="username">Email :</label><br> <input type="text"
+				id="email" name="email" th:field="*{email}" required><br>
 		</div>
 		<div>
 			<label for="password">Mot de passe :</label><br> <input
 				type="password" id="password" name="password" th:field="*{password}"
 				required><br>
 		</div>
+		<div th:if="${error}" style="color: red;">
+            <span th:text="${error}"></span>
+        </div>
 		<button type="submit">Login</button>
 	</form>
 </body>
