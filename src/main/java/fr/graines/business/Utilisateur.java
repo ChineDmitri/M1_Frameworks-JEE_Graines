@@ -1,8 +1,11 @@
 package fr.graines.business;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +24,7 @@ public class Utilisateur {
     protected Long id;
     protected String nom;
     protected String prenom;
+    @Column(unique = true)
     protected String adresseEmail;
     protected String motDePasse;
 

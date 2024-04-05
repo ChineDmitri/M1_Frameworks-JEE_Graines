@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import fr.graines.business.Utilisateur;
 import fr.graines.dto.UtilisateurPost;
 import fr.graines.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -22,13 +23,9 @@ public class RegistrationController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
 
     @GetMapping("/registration")
-    public String showRegistrationForm(Model model, HttpSession session) {
+    public String showRegistrationForm(Model model, HttpServletRequest req, HttpSession session) {
         model.addAttribute("user", new UtilisateurPost());
-        Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
-        if (loggedIn != null && loggedIn) {
-            return "redirect:/";
-        }
-        return "registration-form";
+        return authService.isAuth(req.getRequestURI(), "redirect:/", session);
     }
 
     @PostMapping("/register")
@@ -41,6 +38,7 @@ public class RegistrationController {
 
         if (utilisateurCreated == null) {
             model.addAttribute("error", "Utilisateur avec email-existe déja");
+            model.addAttribute("user", new UtilisateurPost());
             return "registration-form";
         }
 
